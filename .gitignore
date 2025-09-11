@@ -1,0 +1,8 @@
+xray/
+src/*.egg-info/
+artifacts/*
+__pycache__/
+.ipynb_checkpoints
+*.pyc
+.DS_Store
+.vscode/
