@@ -364,3 +364,91 @@ x==========x]
 [2025-09-11 13:51:07,829: INFO: common: created directory at: artifacts\prepare_callbacks\tensorboard_log_dir]
 [2025-09-11 13:51:07,829: INFO: common: created directory at: artifacts\training]
 [2025-09-11 13:51:08,189: WARNING: saving_utils: Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.]
+[2025-09-12 11:53:25,889: INFO: main: *******************]
+[2025-09-12 11:53:25,889: INFO: main: >>>>>> stage Prepare base model started <<<<<<]
+[2025-09-12 11:53:25,895: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2025-09-12 11:53:25,904: INFO: common: yaml file: params.yaml loaded successfully]
+[2025-09-12 11:53:25,905: INFO: common: created directory at: artifacts]
+[2025-09-12 11:53:25,905: INFO: common: created directory at: artifacts/prepare_base_model]
+[2025-09-12 11:53:26,540: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2025-09-12 11:53:26,802: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2025-09-12 11:53:26,932: INFO: main: >>>>>> stage Prepare base model completed <<<<<<
+
+x==========x]
+[2025-09-12 11:53:26,932: INFO: main: *******************]
+[2025-09-12 11:53:26,932: INFO: main: >>>>>> stage Training started <<<<<<]
+[2025-09-12 11:53:26,933: INFO: common: yaml file: config\config.yaml loaded successfully]
+[2025-09-12 11:53:26,934: INFO: common: yaml file: params.yaml loaded successfully]
+[2025-09-12 11:53:26,934: INFO: common: created directory at: artifacts]
+[2025-09-12 11:53:26,934: INFO: common: created directory at: artifacts\prepare_callbacks\checkpoint_dir]
+[2025-09-12 11:53:26,935: INFO: common: created directory at: artifacts\prepare_callbacks\tensorboard_log_dir]
+[2025-09-12 11:53:26,935: INFO: common: created directory at: artifacts\training]
+[2025-09-12 11:53:27,301: WARNING: saving_utils: Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.]
+[2025-09-12 12:39:04,157: WARNING: saving_api: You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. ]
+[2025-09-12 12:39:04,173: ERROR: main: cannot pickle 'module' object]
+Traceback (most recent call last):
+  File "K:\pipeline - Copy\main.py", line 26, in <module>
+    model_trainer.main()
+  File "k:\pipeline - copy\src\cnnClassifier\pipeline\stage_03_training.py", line 26, in main
+    training.train(
+  File "k:\pipeline - copy\src\cnnClassifier\components\training.py", line 83, in train
+    self.model.fit(
+  File "K:\pipeline - Copy\xray\lib\site-packages\keras\src\utils\traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 230, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 205, in _deepcopy_list
+    append(deepcopy(a, memo))
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 230, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 230, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 172, in deepcopy
+    y = _reconstruct(x, memo, *rv)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 270, in _reconstruct
+    state = deepcopy(state, memo)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 230, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 172, in deepcopy
+    y = _reconstruct(x, memo, *rv)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 270, in _reconstruct
+    state = deepcopy(state, memo)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 230, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 230, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 210, in _deepcopy_tuple
+    y = [deepcopy(a, memo) for a in x]
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 210, in <listcomp>
+    y = [deepcopy(a, memo) for a in x]
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 205, in _deepcopy_list
+    append(deepcopy(a, memo))
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 172, in deepcopy
+    y = _reconstruct(x, memo, *rv)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 270, in _reconstruct
+    state = deepcopy(state, memo)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 146, in deepcopy
+    y = copier(x, memo)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 230, in _deepcopy_dict
+    y[deepcopy(key, memo)] = deepcopy(value, memo)
+  File "C:\Users\devop\AppData\Local\Programs\Python\Python39\lib\copy.py", line 161, in deepcopy
+    rv = reductor(4)
+TypeError: cannot pickle 'module' object
