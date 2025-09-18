@@ -87,5 +87,8 @@ def main():
 #         logger.exception(e)
 #         raise e
 
+
+# run cmd = python main.py --model EffecientNetB0
+# python main.py --model ResNet50
 if __name__ == "__main__":
     main()

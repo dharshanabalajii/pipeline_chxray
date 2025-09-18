@@ -4,7 +4,8 @@ from zipfile import ZipFile
 import tensorflow as tf
 import time
 from pathlib import Path
-
+import mlflow
+import mlflow.keras
 from cnnClassifier.entity.config_entity import TrainingConfig
 
 from tensorflow.keras.applications.efficientnet import preprocess_input
@@ -82,17 +83,35 @@ class Training:
         self.steps_per_epoch = self.train_generator.samples // self.train_generator.batch_size
         self.validation_steps = self.valid_generator.samples // self.valid_generator.batch_size
 
-        self.model.fit(
-            self.train_generator,
-            epochs=self.config.params_epochs,
-            steps_per_epoch=self.steps_per_epoch,
-            validation_steps=self.validation_steps,
-            validation_data=self.valid_generator,
-            callbacks=callback_list
-        )
+        mlflow.set_experiment("ChestXray_Classification")
+        with mlflow.start_run(run_name="EfficientNetB0_Training"):
+            mlflow.log_param("model_type", "EfficientNetB0")
+            mlflow.log_param("epochs", self.config.params_epochs)
+            mlflow.log_param("batch_size", self.config.params_batch_size)
+            mlflow.log_param("learning_rate", self.config.params_learning_rate)
+            mlflow.log_param("image_size", self.config.params_image_size)
+            mlflow.log_param("augmentation", self.config.params_is_augmentation)
 
-        self.save_model(path=self.config.trained_model_path, model=self.model)
+            # Training the model
+            history = self.model.fit(
+                self.train_generator,
+                epochs=self.config.params_epochs,
+                steps_per_epoch=self.steps_per_epoch,
+                validation_steps=self.validation_steps,
+                validation_data=self.valid_generator,
+                callbacks=callback_list
+            )
+            # Log metrics
+            for epoch in range(self.config.params_epochs):
+                mlflow.log_metric("train_loss", history.history['loss'][epoch], step=epoch)
+                mlflow.log_metric("train_accuracy", history.history['accuracy'][epoch], step=epoch)
+                mlflow.log_metric("val_loss", history.history['val_loss'][epoch], step=epoch)
+                mlflow.log_metric("val_accuracy", history.history['val_accuracy'][epoch], step=epoch)
 
+            #save the trained model in mlflow
+            mlflow.keras.log_model(self.model, "efficientnetb0_model")
+            # Final save of the model locally for pipeline purposes
+            self.save_model(path=self.config.trained_model_path, model=self.model)
 
 
 
@@ -168,14 +187,38 @@ class Training_resnet:
         self.steps_per_epoch = self.train_generator.samples // self.train_generator.batch_size
         self.validation_steps = self.valid_generator.samples // self.valid_generator.batch_size
 
-        self.model.fit(
-            self.train_generator,
-            epochs=self.config.params_epochs,
-            steps_per_epoch=self.steps_per_epoch,
-            validation_steps=self.validation_steps,
-            validation_data=self.valid_generator,
-            callbacks=callback_list
-        )
+        mlflow.set_experiment("ChestXray_Classification")
 
-        self.save_model(path=self.config.trained_model_path, model=self.model)
+        with mlflow.start_run(run_name="ResNet50_Training"):
+            mlflow.log_param("model_type", "ResNet50")
+            mlflow.log_param("epochs", self.config.params_epochs)
+            mlflow.log_param("batch_size", self.config.params_batch_size)
+            mlflow.log_param("learning_rate", self.config.params_learning_rate)
+            mlflow.log_param("image_size", self.config.params_image_size)
+            mlflow.log_param("augmentation", self.config.params_is_augmentation)
+
+            # Training the model
+            history = self.model.fit(
+                self.train_generator,
+                epochs=self.config.params_epochs,
+                steps_per_epoch=self.steps_per_epoch,
+                validation_steps=self.validation_steps,
+                validation_data=self.valid_generator,
+                callbacks=callback_list
+            )
+
+            # Log metrics
+            for epoch in range(self.config.params_epochs):
+                mlflow.log_metric("train_loss", history.history['loss'][epoch], step=epoch)
+                mlflow.log_metric("train_accuracy", history.history['accuracy'][epoch], step=epoch)
+                mlflow.log_metric("val_loss", history.history['val_loss'][epoch], step=epoch)
+                mlflow.log_metric("val_accuracy", history.history['val_accuracy'][epoch], step=epoch)
+
+            #save the trained model in mlflow
+            mlflow.keras.log_model(self.model, "resnet50_model")
+
+            # Final save of the model locally for pipeline purposes
+            self.save_model(path=self.config.trained_model_path, model=self.model)
+
+
 
